@@ -64,9 +64,9 @@ function Navbar() {
               <a className="nav-link" href="#roles">Roles</a>
             </li>
             <li className="nav-item">
-              <Link className="btn btn-primary btn-sm px-3" to={AppRoutes.LANDING.ABOUT}>
+              <a className="btn btn-primary btn-sm px-3" href={`${AppRoutes.LANDING.ABOUT}`}>
                 About
-              </Link>
+              </a>
             </li>
             <li className="nav-item">
               <Link className="btn btn-outline-light btn-sm px-3" to={AppRoutes.AUTH.LOGIN}>

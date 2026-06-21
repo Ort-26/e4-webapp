@@ -9,7 +9,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg custom-navbar navbar-dark">
       <div className="container">
-        <Link className="navbar-brand" to="/tickets">
+        <Link className="navbar-brand" to={AppRoutes.TICKETS.LIST}>
           Support Tickets
         </Link>
 

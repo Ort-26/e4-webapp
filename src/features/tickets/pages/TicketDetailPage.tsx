@@ -3,7 +3,7 @@ import type { TicketDetail, TicketDto } from "../../../models/ticket.models";
 import type { CommentDto } from "../../../models/comment.model";
 import { ticketServices } from "../../../core/services/TicketsService";
 import { Loading } from "../../../shared/components/Loading";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AgentCard from "../components/AgentCard";
 import EmptyComments from "../components/EmptyComments";
 import { CommentItem } from "../components/CommentItem";
@@ -11,6 +11,7 @@ import TicketStatusCard from "../components/TicketStatusCard";
 import { AddComment } from "../components/AddComment";
 import { TICKET_STATUSES } from "../../../core/auth/permissions";
 import type { TicketStatuses } from "../../../models/ticket-status.model";
+import { AppRoutes } from "../../../app/router/AppRoutes";
 
 const defaultTicket: TicketDto = {
   ticketId: 0,
@@ -153,6 +154,9 @@ export function TicketDetailPage() {
 
         </div>
       </div>
+      <Link className="navbar-brand text-white btn btn-primary m-3 p-2" to={AppRoutes.TICKETS.LIST}>
+          Volver a la lista de tickets
+      </Link>
     </main>
   );
 }
