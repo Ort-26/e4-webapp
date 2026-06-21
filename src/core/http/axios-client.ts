@@ -2,7 +2,6 @@ import axios, { type AxiosInstance } from 'axios';
 import { env } from '../../config/env';
 import type { ApiResponse } from '../../models/api-response.type';
 
-console.log('API Base URL:', env.apiBaseUrl);
 export const axiosClient: AxiosInstance = axios.create({
   baseURL: env.apiBaseUrl,
   withCredentials: true,

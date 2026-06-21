@@ -1,4 +1,9 @@
 export const AppRoutes = {
+    ROOT: '/',
+    LANDING: {
+        ABOUT: '/about',
+        WORKFLOW: '/workflow',
+    },
     AUTH: {
         LOGIN: '/login',
     },
@@ -10,3 +15,9 @@ export const AppRoutes = {
     // FORBIDDEN: '/forbidden',
     // NOT_FOUND: '/not-found',
 };
+
+export const AppPublicRoutes = [
+    AppRoutes.ROOT,
+    AppRoutes.LANDING.ABOUT,
+    AppRoutes.LANDING.WORKFLOW
+]; 
