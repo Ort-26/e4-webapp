@@ -1,0 +1,66 @@
+/* ==========================================================================
+   ESTILOS PREMIUM PARA TABLAS (MODO OSCURO COHESIVO)
+   ========================================================================== */
+
+.custom-table-container {
+  overflow: hidden;
+  border-radius: 0.75rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.custom-table {
+  margin-bottom: 0 !important;
+  background-color: transparent !important;
+  color: #f8f9fa !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Encabezados de la tabla (Gris oscuro con tipografía refinada) */
+.custom-table thead th {
+  background-color: #161925 !important; /* Tu tono exacto de inputs */
+  color: #a0aec0 !important;             /* Tu text-muted-custom */
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  padding: 1rem 1.25rem !important;
+  border-bottom: 1px solid #343a40 !important;
+}
+
+/* Celdas del contenido */
+.custom-table tbody td {
+  background-color: transparent !important;
+  color: #cbd5e1 !important; /* Texto claro legible */
+  padding: 1.1rem 1.25rem !important;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Efecto hover premium para resaltar la fila activa */
+.custom-table tbody tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  color: #ffffff !important;
+  cursor: pointer;
+}
+
+/* ID con un toque destacado */
+.custom-table tbody td:first-child {
+  font-weight: 700;
+  color: #a0aec0;
+}
+
+/* Estilizar el botón "Ver detalle" para que encaje */
+.custom-table .btn-table-action {
+  border-radius: 0.5rem !important;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.85rem;
+  border-color: rgba(13, 110, 253, 0.3) !important;
+  color: #38bdf8 !important; /* Celeste/azul vibrante */
+  transition: all 0.2s ease;
+}
+
+.custom-table .btn-table-action:hover {
+  background-color: rgba(13, 110, 253, 0.1) !important;
+  border-color: #0d6efd !important;
+}

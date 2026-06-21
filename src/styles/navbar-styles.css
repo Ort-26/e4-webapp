@@ -1,0 +1,55 @@
+/* ==========================================================================
+   ESTILOS PREMIUM PARA NAVBAR (INTEGRADO CON LA PALETA BASE)
+   ========================================================================== */
+
+.custom-navbar {
+  background-color: #111422 !important; /* Mismo tono elegante que tus tarjetas */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important; /* Borde sutil */
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+/* El logo/marca principal de la aplicación */
+.custom-navbar .navbar-brand {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  letter-spacing: -0.02em;
+}
+
+/* Contenedor o píldora de información del usuario */
+.user-badge-container {
+  background-color: #161925 !important; /* Tu color base de inputs */
+  border: 1px solid #343a40 !important;
+  padding: 0.4rem 0.8rem !important;
+  border-radius: 0.5rem !important;
+  color: #a0aec0 !important; /* Tu texto secundario original */
+  font-weight: 500;
+}
+
+/* El rol resaltado (USER, ADMIN, etc.) dentro del badge */
+.user-role-highlight {
+  color: #0d6efd !important; /* Azul Bootstrap de enfoque */
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+/* Ajustes sutiles para los botones de acción dentro de la barra */
+.custom-navbar .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #f8f9fa !important;
+  font-weight: 500;
+  border-radius: 0.5rem !important;
+}
+
+.custom-navbar .btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.custom-navbar .btn-danger {
+  border-radius: 0.5rem !important;
+  font-weight: 600;
+  padding-left: 0.85rem;
+  padding-right: 0.85rem;
+}

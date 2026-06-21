@@ -1,23 +1,27 @@
-import type { LoginRequest, LoginResponse } from "../../features/auth/models/auth.models";
-import { axiosClient } from "../http/axios-client";
-import { tokenStorage } from "../http/token-storage";
+import type { AuthUser, LoginRequest, LoginResponse } from '../../models/auth.models';
+import type { ApiResponse } from '../../models/api-response.type';
+import { axiosClient, unwrapApiResponse } from '../http/axios-client';
+
 
 export const authService = {
   async login(payload: LoginRequest): Promise<LoginResponse> {
-    const response = await axiosClient.post('/auth/login', payload);
-    const loginData = response.data.data as LoginResponse;
-
-    tokenStorage.setTokens(loginData.accessToken, loginData.refreshToken);
-
-    return loginData;
+    const response = await unwrapApiResponse(axiosClient.post<ApiResponse<LoginResponse>>(
+      '/auth/login',
+      payload
+    ));
+    return response;
   },
 
-  async me() {
-    const response = await axiosClient.get('/auth/me');
-    return response.data.data;
+  async me(): Promise<AuthUser> {
+    const response = await unwrapApiResponse(axiosClient.get<ApiResponse<LoginResponse>>('/auth/me'));
+    return response.user;
   },
 
-  logout(): void {
-    tokenStorage.clearTokens();
+  async refresh(): Promise<void> {
+    await axiosClient.post('/auth/refresh');
+  },
+
+  async logout(): Promise<void> {
+    await axiosClient.post('/auth/logout');
   },
 };

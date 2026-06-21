@@ -2,7 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../core/auth/useAuth';
 
 interface Props {
-  permissions: string[];
+  permissions: number[];
 }
 
 export const PermissionRoute = ({ permissions }: Props) => {

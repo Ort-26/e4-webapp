@@ -1,59 +1,52 @@
 import { AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { axiosClient } from './axios-client';
-import { tokenStorage } from './token-storage';
 
 let isRefreshing = false;
-let failedQueue: Array<{resolve: (token: string) => void; reject: (error: unknown) => void;}> = [];
 
-const processQueue = (error: unknown, token: string | null = null) => {
+let failedQueue: Array<{resolve: () => void; reject: (error: unknown) => void;}> = [];
+
+const processQueue = (error: unknown = null) => {
   failedQueue.forEach((promise) => {
     if (error) {
       promise.reject(error);
-    } else if (token) {
-      promise.resolve(token);
+    } else {
+      promise.resolve();
     }
   });
 
   failedQueue = [];
 };
 
+const isAuthEndpoint = (url?: string) => {
+  if (!url) return false;
+  return (
+    url.includes('/auth/login') 
+      || url.includes('/auth/refresh') 
+      || url.includes('/auth/logout')
+      || url.includes('/auth/me')
+  );
+};
+
 export const setupAxiosInterceptors = () => {
-  axiosClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-    const token = tokenStorage.getAccessToken();
-
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-  });
-
-  axiosClient.interceptors.response.use(
-    (response) => response,
-    async (error: AxiosError) => {
+  axiosClient.interceptors.response.use((response) => response, async (error: AxiosError) => {
       const originalRequest = error.config as InternalAxiosRequestConfig & {
         _retry?: boolean;
       };
 
-      if (error.response?.status !== 401 || originalRequest._retry) {
+      if (!error.response || !originalRequest) {
+        return Promise.reject(error);
+      }
+
+      if (error.response.status !== 401 || originalRequest._retry || isAuthEndpoint(originalRequest.url)) {
         return Promise.reject(error);
       }
 
       originalRequest._retry = true;
 
-      const refreshToken = tokenStorage.getRefreshToken();
-
-      if (!refreshToken) {
-        tokenStorage.clearTokens();
-        window.location.href = '/login';
-        return Promise.reject(error);
-      }
-
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({
-            resolve: (token: string) => {
-              originalRequest.headers.Authorization = `Bearer ${token}`;
+            resolve: () => {
               resolve(axiosClient(originalRequest));
             },
             reject,
@@ -64,23 +57,16 @@ export const setupAxiosInterceptors = () => {
       isRefreshing = true;
 
       try {
-        const response = await axiosClient.post('/auth/refresh-token', {
-          refreshToken,
-        });
+        await axiosClient.post('/auth/refresh');
 
-        const { accessToken, refreshToken: newRefreshToken } = response.data.data;
-
-        tokenStorage.setTokens(accessToken, newRefreshToken);
-
-        processQueue(null, accessToken);
-
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        processQueue();
 
         return axiosClient(originalRequest);
       } catch (refreshError) {
-        processQueue(refreshError, null);
-        tokenStorage.clearTokens();
-        window.location.href = '/login';
+        processQueue(refreshError);
+
+        window.dispatchEvent(new Event('auth:session-expired'));
+
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

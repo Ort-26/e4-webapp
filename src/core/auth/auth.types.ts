@@ -1,4 +1,4 @@
-import type { AuthUser } from '../../features/auth/models/auth.models';
+import type { AuthUser } from '../../models/auth.models';
 
 export interface AuthContextValue {
   user: AuthUser | null;
@@ -6,6 +6,6 @@ export interface AuthContextValue {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  hasPermission: (permissionName: string) => boolean;
-  hasAnyPermission: (permissionNames: string[]) => boolean;
+  hasPermission: (permissionName: number) => boolean;
+  hasAnyPermission: (permissionIds: number[]) => boolean;
 }

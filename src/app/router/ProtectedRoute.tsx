@@ -1,17 +1,18 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../../core/auth/useAuth';
-import { Loading } from '../../shared/components/Loading';
+  import { Navigate, Outlet } from 'react-router-dom';
+  import { useAuth } from '../../core/auth/useAuth';
+  import { Loading } from '../../shared/components/Loading';
 
-export const ProtectedRoute = () => {
-  const { isAuthenticated, isLoading } = useAuth();
+  export const ProtectedRoute = () => {
+    const { isAuthenticated, isLoading } = useAuth();
 
-  if (isLoading) {
-    return <Loading />;
-  }
+    if (isLoading) {
+      return <Loading />;
+    }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
+    if (!isAuthenticated) {
+      console.log('User is not authenticated, redirecting to login');
+      return <Navigate to="/login" replace />;
+    }
 
-  return <Outlet />;
-};
+    return <Outlet />;
+  };
