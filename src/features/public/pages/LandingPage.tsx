@@ -11,7 +11,6 @@ export function LandingPage() {
 
       <HeroSection
         onLogin={() => navigate(AppRoutes.AUTH.LOGIN)}
-        onCreateTicket={() => navigate(AppRoutes.TICKETS.CREATE)}
       />
 
       <FeaturesSection />
