@@ -1,3 +1,5 @@
+import type { CatRole } from "./role.model";
+
 export interface UserDto {
   userId: number;
   username: string;
